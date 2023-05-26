@@ -1,15 +1,20 @@
+import Link from 'next/link';
+import React from 'react';
 
-
-export default function Header () {
+const Header = () => {
   return (
     <header>
-     <nav>
-      <a href='/'>Home</a>
-      <a href='/about'>About</a>
-      <a href='/contact'>Contact</a>
-      <a href='/products'>Products</a>
+      <nav>
+        <Link href="/products">Product</Link>
+        <Link href="/about">About</Link>
+        <Link href="/contact">Contact</Link>
+        <Link href="/cart">
+          <span>Cart </span>
+          <img src="/cart.svg" alt="Cart" width="20" height="20" />
+        </Link>
       </nav>
-     </header>
-  )
-}
+    </header>
+  );
+};
 
+export default Header;
