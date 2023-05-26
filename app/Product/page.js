@@ -8,6 +8,7 @@ export default function ProductsPage() {
     <main>
       <h1>These are hand-made ceramics</h1>
       <div className={styles.gridContainer}>
+      <Link href="/"> home page</Link>
         {products.map((product) => {
           return (
             <div className={styles.gridItem} key={`product-${product.id}`}>
@@ -17,6 +18,7 @@ export default function ProductsPage() {
                   <Link href={`/product/${product.id}`} data-test-id={`product-${product.id}`}>
                     {product.name}
                   </Link>
+
                 )}
                 {product.price && (
                   <p>Price: {product.price} euros</p>
