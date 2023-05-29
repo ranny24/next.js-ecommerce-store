@@ -1,16 +1,14 @@
 * {
   margin: 0;
-  background-color: rgb(148, 39, 90);
-  color: rgb(223, 183, 183);
+  background-color: rgb(228, 179, 202);
+  color: rgb(91, 40, 40);
   cursor: pointer;
-
-
+  align-items: center;
 }
-
 
 header {
   background-color: #333;
-  color: #fff;
+  color: #442222;
   padding: 0px;
 }
 
@@ -18,18 +16,20 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0px;
+  color: #6d3131;
 }
 
 nav a {
-  color: #fff;
+  color: #6d3131;
   text-decoration: none;
   margin-right: 10px;
   padding: 0px;
-
 }
 
 nav a:hover {
-  text-decoration: underline yellow;
+  text-decoration: underline #6d3131, 2px;
+  color:rgb(114, 24, 66)
 }
 
 .footer {
@@ -41,11 +41,13 @@ nav a:hover {
 
 .background {
   background-color: rgb(209, 109, 156);
-  color: white;
+  color: rgb(139, 22, 22);
   padding: 0px;
   background-attachment: fixed;
   background-position: center center;
-  background-repeat: no-repeat; background-size: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
 
 h1 {
@@ -54,11 +56,116 @@ h1 {
   padding: 0px;
   margin: 0px;
   font-family: 'Times New Roman', Times, serif;
+  color:rgb(209, 109, 156)
 }
- p {
+p {
   font-size: 20px;
   text-align: center;
   padding: 0px;
   margin: 0px;
   font-family: italic;
+  color:rgb(209, 109, 156)
+}
+.header {
+  font-size: 20px;
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
+  font-family: italic;
+  color:rgb(114, 24, 66)
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.gridItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f2;
+  padding: 1rem;
+  text-align: center;
+}
+
+.products {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  font-size: 1rem;
+  color: #888888;
+  margin-bottom: 0.5rem;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%; /* Maintain aspect ratio */
+}
+
+.imageContainer img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.quantityContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.quantityContainer button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: #ffffff;
+  border: 1px solid #888888;
+  color: #888888;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.quantityContainer button:hover {
+  background-color: #f2f2f2;
+}
+
+.quantity {
+  margin: 0 0.5rem;
+}
+
+.addToCartButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 2.5rem;
+  background-color: #4285f4;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+}
+
+.addToCartButton:hover {
+  background-color: #3367d6;
+}
+
+.addToCartIcon {
+  margin-right: 0.5rem;
 }
