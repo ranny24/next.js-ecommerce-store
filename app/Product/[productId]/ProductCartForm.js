@@ -22,7 +22,7 @@ export default function ProductCartForm(props) {
         <button
           formAction={async () => {
             router.refresh();
-            await createOrUpdateCart(props.product.id, quantity);
+            await createOrUpdateCart(props.productId, quantity);
           }}
         >
           Add to Cart
@@ -30,7 +30,7 @@ export default function ProductCartForm(props) {
         <button
           formAction={async () => {
             router.refresh();
-            await deleteCartItem(props.product.id, quantity);
+            await deleteCartItem(props.productId, quantity);
           }}
         >
           Remove from Cart

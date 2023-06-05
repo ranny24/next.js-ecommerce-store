@@ -12,40 +12,49 @@ export const metadata = {
 };
 
 export default function ProductsPage() {
-  const [cartItems, setCartItems,] = useState([]);
-
+  const [cartItems, setCartItems] = useState([]);
 
   const handleAddToCart = (productId) => {
     // Find the product by ID
     const productToAdd = products.find((product) => product.id === productId);
-
+console.log(productToAdd);
     if (productToAdd) {
       // Add the product to the cart items
-      cartItems.push(productToAdd);
-      setCartItems(cartItems);
-     // console.log(`Product ${productId} added to cart`);
-     alert(`Product ${productId} added to cart`);
-     console.log(cartItems);
-      //sendProducts();
+      const updatedCartItems = [...cartItems, productToAdd];
+    setCartItems(updatedCartItems);
+
+
+      alert(`Product ${productId} added to cart`);
+      cartItems.map((item) => console.log(item.name));
+      console.log(cartItems);
+
+
     }
   };
-/*function sendProducts(){
-  Router.push({
-    pathname: '/cart',
-    query: { cartItems: cartItems },
-  }).catch((err) => console.log(err));
-*/
+
   return (
     <main>
       <h1>These are hand-made ceramics</h1>
       <div className={styles.gridContainer}>
         <Link href="/">Home page</Link>
+        <br />
         <Link href="/cart">Cart</Link>
+        <br />
+
         {products.map((product) => (
-          <div className={styles.gridItem} key={`product-${product.id}`}>
-            <Image src={product.image} alt={`Product ${product.id}`} width={200} height={200} />
-            <div className={styles.products}>
-              <Link href={`/products/${product.id}`} data-test-id={`product-${product.id}`}>
+          <div className={styles.productsItem} key={`product-${product.id}`}>
+            <Image
+              src={product.image}
+              alt={`Product ${product.id}`}
+              width={300}
+              height={300}
+
+            />
+            <div className={styles.productsCeramics}>
+              <Link
+                href={`/product/${product.id}`}
+                data-test-id={`product-${product.id}`}
+              >
                 <span className={styles.products}>{product.name}</span>
               </Link>
               {product.price && <p>Price: {product.price} euros</p>}
@@ -53,7 +62,10 @@ export default function ProductsPage() {
                 <button
                   onClick={() => handleAddToCart(product.id)}
                   className={styles.addToCartButton}
+
+
                 >
+
                   Add to Cart
                 </button>
               </div>
@@ -64,4 +76,3 @@ export default function ProductsPage() {
     </main>
   );
 }
-

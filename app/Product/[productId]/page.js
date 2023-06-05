@@ -1,37 +1,60 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { getProductById } from '../../../Database/ceramics';
+import style from '../../page.module.scss';
+import { getCookie } from '../../util/cookies';
+import { parseJson } from '../../util/json';
 import ProductQuantityForm from './ProductQuantityForm';
 
-export default function ProductPage({ params }) {
-  const router = useRouter();
-  const productId = Number(params.productId); // Convert the string into a number
-  const singleProduct = getProductById(productId);
+export const dynamic = 'force-dynamic';
 
-  if (!singleProduct) {
-    router.push('/not-found'); // Example: navigate to a "not-found" page
-    return null;
+export default async function ProductPage({ params }) {
+  const product = await getProductById(Number(params.productId));
+
+  if (!product) {
+    notFound();
   }
 
+  const cartCookies = getCookie('cart');
+
+  const carts = !cartCookies ? [] : parseJson(cartCookies);
+
+  const cartToUpdate = carts.find((cart) => {
+    return cart.id === product.id;
+  });
+
   return (
-    <main>
-      <Image
-        data-test-id="product-image"
-        src={`/images/${singleProduct.name}.jpg`}
-        width={400}
-        height={500}
-      />
-      <h1>{singleProduct.name}</h1>
-      <h5>{singleProduct.description}</h5>
-      <h6 data-test-id="product-price">{singleProduct.price}EUR</h6>
-      <p>Quantity</p>
-      <div>
-        <ProductQuantityForm productId={productId} />
+    <main className={style.productMainContainer}>
+      <div className={style.productContentContainer}>
+        <Image
+          src={product.image}
+          alt={`Product ${product.id}`}
+          width={200}
+          height={200}
+        />
+        <div className={style.productInfoContainer}>
+          <h1>{product.name}</h1>
+          <br />
+          <h4>{product.price} $</h4>
+          <br />
+          <p>{product.description}</p>
+          <br />
+          <div>
+            <span>In Cart: </span>
+            <span>{cartToUpdate ? cartToUpdate.number : 0}</span>
+            <br />
+            <br />
+
+            <ProductQuantityForm product={product} />
+            <br />
+            <Link href={`/`}> Go back to home page</Link>
+            <br />
+            <Link href={`/cart`}> Go to cart</Link>
+            <br />
+            <Link href={`/product`}> Go to product</Link>
+          </div>
+        </div>
       </div>
-      <p>
-        Some text here
-        <br />To ensure...
-      </p>
     </main>
   );
 }
