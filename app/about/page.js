@@ -1,12 +1,54 @@
+import { css } from '@emotion/react';
 import Link from 'next/link';
 import React from 'react';
 
+/* const styles = {
+  container: css`
+    max-width: 800px;
+    margin: 1 auto;
+    padding: 20px;
+    background-color: pink;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  `,
+  heading: css`
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+  `,
+  paragraph: css`
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  `,
+  link: css`
+    color: #0070f3;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    display: inline-block;
+    &:hover {
+      text-decoration: underline;
+    }
+  `,
+  image: css`
+    max-width: 20%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  `,
+}; */
+
 const AboutPage = () => {
   return (
-    <div>
-      <h1>About Page</h1>
+    <div css={styles.container}>
+      <h1 css={styles.heading}>About Page</h1>
 
-      <p>
+      <p css={styles.paragraph}>
         Welcome to Ceramic Delights, a delightful haven for ceramic enthusiasts!
         At Ceramic Delights, we believe that beauty lies in the smallest
         details. We are passionate about creating cute and sweet ceramic pieces
@@ -33,10 +75,10 @@ const AboutPage = () => {
         Delights' ceramics bring a smile to your face and warmth to your heart.
       </p>
 
-      <br/>
-      <img src= "fubsies.png" alt="background" width="30%" height="20%" />
-      <Link href="/"> home page</Link>
-
+      <img src="fubsies.png" alt="background" css={styles.image} />
+      <Link href="/" css={styles.link}>
+        Home Page
+      </Link>
     </div>
   );
 };

@@ -4,40 +4,55 @@ import { getProductById } from '../../../Database/ceramics';
 import style from '../../page.module.scss';
 import { getCookie } from '../../util/cookies';
 import { parseJson } from '../../util/json';
-import ProductQuantityForm from './ProductQuantityForm';
+import ProductCartForm from './ProductCartForm';
+
+export const metadata = {
+  title: 'Single Product Page',
+  description: 'This is our Single Product Page',
+};
 
 export const dynamic = 'force-dynamic';
 
-export default async function ProductPage({ params }) {
-  const product = await getProductById(Number(params.productId));
+type Props = {
+  params: { productId: string };
+};
 
-  if (!product) {
+
+
+export default async function ProductPage(props: Props) {
+  const singleProduct = await getProductById(Number(props.params.productId));
+
+  console.log(singleProduct);
+
+  if (!singleProduct) {
     notFound();
   }
 
-  const cartCookies = getCookie('cart');
+/*  const cartCookies = getCookie('cart');
 
   const carts = !cartCookies ? [] : parseJson(cartCookies);
 
-  const cartToUpdate = carts.find((cart) => {
-    return cart.id === product.id;
-  });
+  const cartToUpdate = carts.find((cart: { id: number }) => {
+    return cart.id === product.id; */
+
+ */
+
 
   return (
     <main className={style.productMainContainer}>
       <div className={style.productContentContainer}>
         <Image
-          src={product.image}
+           src={`/images/${singleProduct.name}.png`}}
           alt={`Product ${product.id}`}
           width={200}
           height={200}
         />
         <div className={style.productInfoContainer}>
-          <h1>{product.name}</h1>
+          <h1>{singleProduct.name}</h1>
           <br />
-          <h4>{product.price} $</h4>
+          <h4>{singleProduct.price} $</h4>
           <br />
-          <p>{product.description}</p>
+          <p>{singleProduct.description}</p>
           <br />
           <div>
             <span>In Cart: </span>

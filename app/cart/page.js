@@ -1,80 +1,81 @@
 import Image from 'next/image';
 import Link from 'next/link';
+// import Link from 'next/link';
 import { getProductById } from '../../Database/ceramics';
-import style from '../page.module.scss';
-import { getCookie } from '../util/cookies';
-import { parseJson } from '../util/json';
-import CheckOutButton from './CheckOutButton';
-import DeleteItemFromCart from './DeleteButton';
+import { getQuantity } from '../product/[productId]/actions';
+import ChangeQuantityItem from './ChangeQualityItem';
+import DeleteItems from './DeleteItems';
+import styles from './page.module.scss';
+
+export const metadata = {
+  title: 'Cearmics Cart',
+  description: 'Made with love',
+};
 
 export default async function CartPage() {
-  const products = await getProductById();
-  const cartCookies = getCookie('cart');
+  const productQuantity = await getQuantity();
 
-  const carts = !cartCookies ? [] : parseJson(cartCookies);
+  const productInCart = await Promise.all(
+    productQuantity.map(async (item) => {
+      // item is my product in cookies
+      const matchingProduct = await getProductById(Number(item.id));
 
-  const orders = carts.map((cart) => {
-    const orderItem = products.find((product) => product.id === cart.id);
-    return {
-      id: orderItem.id,
-      name: orderItem.name,
-      price: orderItem.price,
-      quantity: cart.number,
-    };
-  });
-
-  const totalSum = carts.reduce((sum, item) => sum + parseInt(item.number), 0);
-
-  const totalPrice = orders.reduce(
-    (sum, item) => sum + parseInt(item.quantity) * parseInt(item.price),
-    0,
+      return {
+        ...matchingProduct,
+        quantity: item.quantity,
+      };
+    }),
   );
 
-  console.log(orders);
+  function calculateTotalPrice() {
+    return productInCart.reduce(
+      (total, item) => total + item.quantity * item.price,
+      0,
+    );
+  }
+  let subTotalProductPrice = 0;
 
   return (
-    <main className={style.cartMainContainer}>
-      <h1>Your Cart</h1>
-      <br />
-      <br />
-      {JSON.stringify(orders)}{orders.length > 0 && (
-        <>
-          {orders.map((order) => {
-            return (
-              <div
-                className={style.cartContentContainer}
-                key={`cart-div-${order.id}`}
-              >
-                <Image
-                  src={`/images/${order.name}.png`}
-                  width={100}
-                  height={100}
-                  alt="Ceramics"
-                />
-                <div>
-                  <h3>{order.name}</h3>
-                  <span>{order.price} $</span>
-                  <br />
-                  <ChangeItemQuantity
-                    productId={order.id}
-                    productQuantity={order.quantity}
-                  />
-                  <DeleteItemFromCart productId={order.id} />
-                </div>
-              </div>
-            );
-          })}
+    <main>
+      <section className={styles.cartPage}>
+        {productInCart.map((product) => {
+          subTotalProductPrice = product.quantity * product.price;
 
-          <br />
+          return (
+            <div key={`product-${product.id}`} className={styles.productCart}>
+              <Image
+                alt=""
+                src={`/images/${product.name}.jpg`}
+                width={250}
+                height={250}
+              />
+              <div>Name: {product.name}</div>
+              <div>Price: {product.price}</div>
+              <div>Subtotal price: {subTotalProductPrice}</div>
 
-          <div>
-            <span>
-              Total Quantity: {totalSum} Total Price: {totalPrice}$
-            </span>
-          </div>
-          <CheckOutButton />
-        </>
-      )}
+              {/* <div>{product.totalQuantity}</div> */}
+              <form>
+                <ChangeQuantityItem product={product} />
+              </form>
+
+              <form>
+                <DeleteItems product={product} />
+              </form>
+            </div>
+          );
+        })}
+        <div>
+          Total price:
+          <span data-test-id="cart-total">{calculateTotalPrice()}</span>
+        </div>
+        <Link
+          className={styles.link}
+          href="/cart/checkout/"
+          data-test-id="cart-checkout"
+        >
+          Checkout!
+        </Link>
+      </section>
     </main>
   );
 }

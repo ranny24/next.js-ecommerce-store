@@ -1,5 +1,5 @@
-* {
-  margin: 10px;
+*{
+  margin: 0px;
   background-color: rgb(228, 179, 202);
   color: rgb(91, 40, 40);
   cursor: default;
@@ -17,8 +17,8 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px;
-  color: #6d3131;
+  padding: 2px;
+  color: #5a0808;
   overflow: hidden;
 
   &:hover {
@@ -30,7 +30,7 @@ nav {
 }
 
 nav a {
-  color: #6d3131;
+  color: #d94e4e;
   text-decoration: none;
   margin-right: 10px;
   padding: 0px;
@@ -38,15 +38,10 @@ nav a {
 
 nav a:hover {
   text-decoration: underline #6d3131, 2px;
-  color:rgb(114, 24, 66)
+  color:rgb(125, 44, 82)
 }
 
-.footer {
-  background-color: #333;
-  color: #fff;
-  padding: 0px;
-  text-align: center;
-}
+
 
 .background {
   background-color: rgb(209, 109, 156);
@@ -66,7 +61,10 @@ h1 {
   margin: 0px;
   font-family: 'Times New Roman', Times, serif;
   color:rgb(209, 109, 156)
+
 }
+
+
 p {
   font-size: 20px;
   text-align: center;
@@ -84,7 +82,7 @@ p {
   color:rgb(114, 24, 66)
 }
 
-.gridContainer {
+/* .gridContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
@@ -116,7 +114,7 @@ p {
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 100%; /* Maintain aspect ratio */
+  padding-bottom: 100%;
 }
 
 .imageContainer img {
@@ -145,7 +143,7 @@ p {
   border: 1px solid #888888;
   color: #888888;
   font-size: 1rem;
-  cursor: pointer;
+
 }
 
 .quantityContainer button:hover {
@@ -168,7 +166,7 @@ p {
   font-weight: bold;
   text-transform: uppercase;
   border: none;
-  cursor: pointer;
+
 }
 
 .addToCartButton:hover {
@@ -178,3 +176,4 @@ p {
 .addToCartIcon {
   margin-right: 0.5rem;
 }
+ */

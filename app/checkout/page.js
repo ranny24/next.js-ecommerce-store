@@ -1,12 +1,16 @@
-import Link from 'next/link';
 import { getProductsById } from '../../Database/ceramics';
 import style from '../page.module.scss';
 import { getCookie } from '../util/cookies';
 import { parseJson } from '../util/json';
 import CheckOutForm from './CheckOutForm';
 
+export const metadata = {
+  title: 'Checkout Page',
+  description: 'This is your Checkout Page',
+};
+
 export default async function CheckoutPage() {
-  const products = await getProductsById();
+  const products = await getProductsById;
   const cartCookies = getCookie('cart');
 
   const carts = !cartCookies ? [] : parseJson(cartCookies);
@@ -29,7 +33,7 @@ export default async function CheckoutPage() {
   );
 
   return (
-    <main className={style.cartMainContainer}>
+    <main className={style.checkOutForm}>
       <div>
         <CheckOutForm />
       </div>
@@ -40,7 +44,7 @@ export default async function CheckoutPage() {
             {orders.map((order) => {
               return (
                 <div
-                  className={style.cartContentContainer}
+                  className={style.checkOutContainer}
                   key={`cart-div-${order.id}`}
                 >
                   <table>
